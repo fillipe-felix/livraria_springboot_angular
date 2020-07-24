@@ -1,13 +1,26 @@
 package com.livraria.app.entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+@Table(name = "tb_emprestimo")
 public class Emprestimo implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String data;
     private String dataDevolucao;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "livro_id")
+    private Livro livro;
 
     public Emprestimo() {
 
@@ -41,6 +54,22 @@ public class Emprestimo implements Serializable {
 
     public void setDataDevolucao(String dataDevolucao) {
         this.dataDevolucao = dataDevolucao;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Livro getLivro() {
+        return livro;
+    }
+
+    public void setLivro(Livro livro) {
+        this.livro = livro;
     }
 
     @Override

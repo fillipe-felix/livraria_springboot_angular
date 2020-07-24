@@ -1,16 +1,31 @@
 package com.livraria.app.entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "tb_usuario")
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
     private String email;
     private String login;
     private String senha;
+
+    @OneToMany
+    @JoinColumn(name = "usuario_id")
+    private List<Livro> livros = new ArrayList<>();
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Emprestimo> emprestimos = new ArrayList<>();
+
 
     public Usuario() {
 
@@ -63,6 +78,24 @@ public class Usuario implements Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    public List<Livro> getLivros() {
+        return livros;
+    }
+
+    public void setLivros(List<Livro> livros) {
+        this.livros = livros;
+    }
+
+    public List<Emprestimo> getEmprestimos() {
+        return emprestimos;
+    }
+
+    public void setEmprestimos(List<Emprestimo> emprestimos) {
+        this.emprestimos = emprestimos;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {

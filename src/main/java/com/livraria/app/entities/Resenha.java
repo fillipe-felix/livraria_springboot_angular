@@ -1,11 +1,16 @@
 package com.livraria.app.entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
+@Table(name = "tb_resenha")
 public class Resenha implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String texto;
     private Integer nota;
@@ -43,6 +48,8 @@ public class Resenha implements Serializable {
     public void setNota(Integer nota) {
         this.nota = nota;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
